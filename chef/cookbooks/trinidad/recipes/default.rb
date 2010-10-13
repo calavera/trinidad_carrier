@@ -24,5 +24,5 @@ execute "configure-trinidad" do
 end
 
 execute "start-trinidad" do
-  command "/etc/init.d/trinidad-daemon.sh start"
+  command "/etc/init.d/trinidad start"
 end
