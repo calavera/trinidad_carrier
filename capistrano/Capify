@@ -1,0 +1,31 @@
+set :application, "myapp"
+set :domain,      "example.com"
+set :repository,  "ssh://#{domain}/path-to-your-git-repo/#{application}.git"
+set :use_sudo,    false
+set :deploy_to,   "/path-to-your-web-app-directory/#{application}"
+set :scm,         "git"
+
+role :app, domain
+role :web, domain
+role :db,  domain, :primary => true
+
+namespace :deploy do
+  task :start, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+    # Uncomment the next line if trinidad_hotdeploy_extension is not installed
+    # run "/etc/init.d/trinidad start"
+  end
+
+  task :stop, :roles => :app do
+    # Uncomment the next line if trinidad_hotdeploy_extension is not installed
+    # run "/etc/init.d/trinidad stop"
+  end
+
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+    # Uncomment the next line if trinidad_hotdeploy_extension is not installed
+    # run "/etc/init.d/trinidad restart"
+  end
+end
+
